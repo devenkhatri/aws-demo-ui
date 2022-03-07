@@ -1,7 +1,11 @@
 import Header from './header'
 import Footer from './footer'
+import useUser from "../lib/useUser";
 
 const Layout = ({ children, title, brandname }) => {
+    const { user } = useUser({
+        redirectTo: "/login",
+    });
     const defaultbrandname = process.env.NEXT_PUBLIC_BRANDNAME;
     const defaulttitle = process.env.NEXT_PUBLIC_SITETITLE;
     return (

@@ -22,11 +22,8 @@ const Header = ({ title, brandname }) => {
                     <span className="ml-3 text-xl">{brandname}</span>
                 </a>
                 <nav className="md:ml-auto grid md:flex flex-wrap items-center text-base justify-center">
-                    {/* <a className="mr-5 hover:text-gray-900" href="landing-2">Landing-2</a> */}
-                    {/* <a className="mr-5 hover:text-gray-900">Second Link</a>
-                    <a className="mr-5 hover:text-gray-900">Third Link</a>
-                    <a className="mr-5 hover:text-gray-900">Fourth Link</a> */}
-                </nav>
+                            
+                        </nav>
                 {!user?.isLoggedIn &&
                     <a className="inline-flex items-center bg-orange-500 border-0 py-2 px-3 focus:outline-none hover:bg-orange-700 text-orange-100 hover:text-white rounded text-base mt-4 md:mt-0"
                         href="/login"
@@ -35,7 +32,8 @@ const Header = ({ title, brandname }) => {
                     </a>
                 }
                 {user?.isLoggedIn === true &&
-                    <>
+                    <>      
+                        {/* <a className="mr-5 hover:text-gray-900 text-orange-500" href="landing">Dashboard</a>                   */}
                         <b>User: </b><div className="mr-5 ml-2 hover:text-gray-900">{user?.login}</div>
                         <a className="inline-flex items-center bg-orange-500 border-0 py-2 px-3 focus:outline-none hover:bg-orange-700 text-orange-100 hover:text-white rounded text-base mt-4 md:mt-0"
                             href="/api/logout"
