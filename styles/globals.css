@@ -6,3 +6,7 @@ em {
     font-weight: bolder;
     color: #e49808;
 }
+
+.search-results .ant-table-pagination {
+    display: none !important;
+}

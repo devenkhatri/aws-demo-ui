@@ -40,42 +40,45 @@ const config = {
     },
     autocompleteQuery: buildAutocompleteQueryConfig(),
     apiConnector: connector,
-    alwaysSearchOnInitialLoad: true
+    alwaysSearchOnInitialLoad: false,
+    initialState: {
+        resultsPerPage: 10, // Request State
+      },
 };
 
 const SearchUI = () => {
     const columns = [
         {
-          title: 'Account Name',
-          dataIndex: 'account_name',
-          key: 'account_name',
-          sorter: (a, b) => a.account_name.length - b.account_name.length,
-          render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            title: 'Account Name',
+            dataIndex: 'account_name',
+            key: 'account_name',
+            sorter: (a, b) => a.account_name.length - b.account_name.length,
+            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
         },
         {
-          title: 'Account No',
-          dataIndex: 'account_no',
-          key: 'account_no',
-          sorter: (a, b) => a.account_no - b.account_no,
-          render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            title: 'Account No',
+            dataIndex: 'account_no',
+            key: 'account_no',
+            sorter: (a, b) => a.account_no - b.account_no,
+            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
         },
         {
-          title: 'Statement Date',
-          dataIndex: 'statement_date',
-          key: 'statement_date',
-        //   sorter: (a, b) => a.address.length - b.address.length,
-          responsive: ['md'],
-          render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            title: 'Statement Date',
+            dataIndex: 'statement_date',
+            key: 'statement_date',
+            //   sorter: (a, b) => a.address.length - b.address.length,
+            responsive: ['md'],
+            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
         },
         {
-          title: 'Document ID',
-          key: 'document_id',
-          dataIndex: 'document_id',
-          render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            title: 'Document ID',
+            key: 'document_id',
+            dataIndex: 'document_id',
+            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
         },
-      ];
-      
-      const data = [];
+    ];
+
+    const data = [];
     return (
         // <SearchProvider config={config}>
         //   <WithSearch mapContextToProps={({ wasSearched }) => ({ wasSearched })}>
@@ -121,7 +124,7 @@ const SearchUI = () => {
         //   </WithSearch>
         // </SearchProvider>
 
-        <SearchProvider config={config}>
+        <SearchProvider config={config} resultsPerPage={10}>
             <WithSearch
                 mapContextToProps={({ searchTerm, setSearchTerm, results }) => ({
                     searchTerm,
@@ -129,9 +132,9 @@ const SearchUI = () => {
                     results
                 })}
             >
-                {({ searchTerm, setSearchTerm, results }) => {  
-                    data=[];                  
-                    results.map((item)=>{
+                {({ searchTerm, setSearchTerm, results }) => {
+                    data = [];
+                    results.map((item) => {
                         data.push({
                             key: item.id.raw,
                             account_name: item.account_name.snippet,
@@ -140,18 +143,31 @@ const SearchUI = () => {
                             document_id: item.document_id.snippet,
                         });
                     })
-                    console.log("**** results", results, data)
+                    // console.log("**** results", results, data)
                     return (
-                        <div>
+                        <div className="h-screen relative search-results p-4">
+                            <ErrorBoundary>
                             <SearchBox
                                 className="z-50"
                                 autocompleteSuggestions={{
                                     sectionTitle: "Suggested Queries"
                                 }} />
+                            <div className="flex justify-center p-4">
+                                <PagingInfo />
+                                {/* <ResultsPerPage /> */}
+                            </div>
+                            <div className="flex justify-center w-full">
                             <Table
                                 columns={columns}
                                 dataSource={data}
-                              />                             
+                                pagination={{ pageSize: 20 }}
+                                className="w-full"
+                            />
+                            </div>
+                            <div className="flex justify-center p-4">
+                                <Paging />
+                            </div>
+                            </ErrorBoundary>
                         </div>
                     );
                 }}
