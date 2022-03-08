@@ -2,7 +2,7 @@ import Header from './header'
 import Footer from './footer'
 import useUser from "../lib/useUser";
 
-const Layout = ({ children, title, brandname }) => {
+const PageLayout = ({ children, title, brandname }) => {
     const { user } = useUser({
         redirectTo: "/login",
     });
@@ -19,4 +19,4 @@ const Layout = ({ children, title, brandname }) => {
     );
 }
 
-export default Layout;
+export default PageLayout;

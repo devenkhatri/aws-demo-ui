@@ -2,8 +2,7 @@ import Head from 'next/head'
 import useUser from '../lib/useUser';
 import fetchJson from '../lib/fetchJson';
 import { useRouter } from 'next/router';
-import { Button } from 'antd';
-import { LoginOutlined, LogoutOutlined } from '@ant-design/icons';
+import LinkButton from './link-button';
 
 const Header = ({ title, brandname }) => {
     const { user, mutateUser } = useUser()
@@ -25,17 +24,15 @@ const Header = ({ title, brandname }) => {
                             
                         </nav>
                 {!user?.isLoggedIn &&
-                    <a className="inline-flex items-center bg-primary-500 border-0 py-2 px-3 focus:outline-none hover:bg-primary-700 text-primary-100 hover:text-white rounded text-base mt-4 md:mt-0"
-                        href="/login"
-                    >
+                    <LinkButton href="/login">
                         Login
-                    </a>
+                    </LinkButton>
                 }
                 {user?.isLoggedIn === true &&
                     <>      
                         {/* <a className="mr-5 hover:text-gray-900 text-primary-500" href="landing">Dashboard</a>                   */}
                         <b>User: </b><div className="mr-5 ml-2 hover:text-gray-900">{user?.login}</div>
-                        <a className="inline-flex items-center bg-primary-500 border-0 py-2 px-3 focus:outline-none hover:bg-primary-700 text-primary-100 hover:text-white rounded text-base mt-4 md:mt-0"
+                        <LinkButton
                             href="/api/logout"
                             onClick={async (e) => {
                                 e.preventDefault()
@@ -47,7 +44,7 @@ const Header = ({ title, brandname }) => {
                             }}
                         >
                             Signout
-                        </a>
+                        </LinkButton>
                     </>
                 }
             </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useUser from "../lib/useUser";
-import Layout from '../components/layout'
+import PageLayout from '../components/page-layout'
 import LoginForm from "../components/login-form";
 import fetchJson, { FetchError } from "../lib/fetchJson";
 
@@ -14,7 +14,7 @@ export default function Login() {
     const [errorMsg, setErrorMsg] = useState("");
 
     return (
-        <Layout>
+        <PageLayout>
             <div className="flex flex-col items-center justify-center w-screen h-screen bg-gray-200 text-gray-700">
                 <h1 className="font-bold text-2xl">{process.env.NEXT_PUBLIC_BRANDNAME}</h1>
                 <LoginForm
@@ -46,6 +46,6 @@ export default function Login() {
                 />
 
             </div>
-        </Layout>
+        </PageLayout>
     );
 }
