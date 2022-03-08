@@ -1,6 +1,8 @@
-import Header from './header'
-import Footer from './footer'
+import PageHeader from './page-header'
+import PageFooter from './page-footer'
 import useUser from "../lib/useUser";
+import { Layout } from 'antd';
+const { Content } = Layout;
 
 const PageLayout = ({ children, title, brandname }) => {
     const { user } = useUser({
@@ -10,11 +12,11 @@ const PageLayout = ({ children, title, brandname }) => {
     const defaulttitle = process.env.NEXT_PUBLIC_SITETITLE;
     return (
         <div>
-            <Header title={title || defaulttitle} brandname={brandname || defaultbrandname} />
-            <main className="flex w-full flex-1 flex-col">
+            <PageHeader title={title || defaulttitle} brandname={brandname || defaultbrandname} />
+            <Content className="flex w-full flex-1 flex-col">
                 {children}
-            </main>
-            <Footer brandname={brandname || defaultbrandname} />
+            </Content>
+            <PageFooter brandname={brandname || defaultbrandname} />
         </div>
     );
 }

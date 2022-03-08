@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import PageLayout from "../components/page-layout";
+import React from 'react';
 import DataTree from "../components/data-tree";
 import SearchPanel from '../components/search-panel';
-import { Skeleton, Table, Space } from 'antd';
+import PageLayout from "../components/page-layout";
+import { Table, Space } from 'antd';
+import { Layout, Menu } from 'antd';
 
-export default function Home() {
+const { SubMenu } = Menu;
+const { Header, Content, Sider } = Layout;
+
+export default function Test() {
   const columns = [
     {
       title: 'Name',
@@ -23,6 +27,7 @@ export default function Home() {
       dataIndex: 'address',
       key: 'address',
       sorter: (a, b) => a.address.length - b.address.length,
+      responsive: ['md'],
     },
     {
       title: 'Download',
@@ -60,30 +65,26 @@ export default function Home() {
   ];
 
   return (
-    <PageLayout className="flex min-h-screen flex-col items-center justify-center py-2">
-      <main className="bg-gray-100 dark:bg-gray-800 h-screen overflow-hidden relative">
-        <div className="md:flex grid items-start justify-between">
-          <div className="md:h-screen shadow-lg relative md:w-80 w-screen">
-            <div className="bg-white h-full dark:bg-gray-700">
-              <DataTree />
-            </div>
-          </div>
-          <div className="flex flex-col w-full md:space-y-4">
+    <PageLayout>
+      <Layout>
+        <Sider width={200} breakpoint="lg">
+          <DataTree />
+        </Sider>
+        <Layout>
+          <Content className="h-screen" >
             <div className="px-4 md:px-6 md:py-4 py-2">
               <SearchPanel />
             </div>
             <div className="px-4 md:px-6">
               <h2>Result</h2>
-              {/* <Skeleton active />   */}
               <Table
                 columns={columns}
-                // pagination={{ position: [this.state.top, this.state.bottom] }}
                 dataSource={data}
               />
             </div>
-          </div>
-        </div>
-      </main>
+          </Content>
+        </Layout>
+      </Layout>
     </PageLayout>
   );
 }

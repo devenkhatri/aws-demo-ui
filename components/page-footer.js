@@ -1,4 +1,4 @@
-const Footer = ({brandname}) => {
+const PageFooter = ({brandname}) => {
     return(
         <footer className="text-gray-600 body-font h-24 border-t">
                 <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
@@ -38,4 +38,4 @@ const Footer = ({brandname}) => {
     );
 }
 
-export default Footer;
+export default PageFooter;

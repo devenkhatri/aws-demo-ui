@@ -4,7 +4,7 @@ import fetchJson from '../lib/fetchJson';
 import { useRouter } from 'next/router';
 import LinkButton from './link-button';
 
-const Header = ({ title, brandname }) => {
+const PageHeader = ({ title, brandname }) => {
     const { user, mutateUser } = useUser()
     const router = useRouter()
     return (
@@ -31,7 +31,7 @@ const Header = ({ title, brandname }) => {
                 {user?.isLoggedIn === true &&
                     <>      
                         {/* <a className="mr-5 hover:text-gray-900 text-primary-500" href="landing">Dashboard</a>                   */}
-                        <b>User: </b><div className="mr-5 ml-2 hover:text-gray-900">{user?.login}</div>
+                        <div className='flex'><b>User: </b><div className="mr-5 ml-2 hover:text-gray-900">{user?.login}</div></div>
                         <LinkButton
                             href="/api/logout"
                             onClick={async (e) => {
@@ -52,4 +52,4 @@ const Header = ({ title, brandname }) => {
     );
 }
 
-export default Header;
+export default PageHeader;
