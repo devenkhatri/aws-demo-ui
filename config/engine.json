@@ -1,0 +1,19 @@
+{
+  "engineName": "aws-demo-ui",
+  "endpointBase": "https://ui-demo.ent.us-central1.gcp.cloud.es.io",
+  "searchKey": "search-iaegbph3j2pyibps1wkruovt",
+  "resultFields": [
+    "statement_date",
+    "account_name",
+    "document_id",
+    "account_no",
+    "id"
+  ],
+  "sortFields": [
+    "statement_date"
+  ],
+  "facets": [
+
+  ],
+  "titleField": "account_name"
+}

@@ -9,7 +9,7 @@ import { Layout, Menu } from 'antd';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-export default function Home() {
+export default function OpenSearch() {
   const columns = [
     {
       title: 'Name',
@@ -72,17 +72,8 @@ export default function Home() {
           <DataTree />
         </Sider>
         <Layout>
-          <Content className="h-screen" >
-            <div className="px-4 md:px-6 md:py-4 py-2">
-              <SearchPanel />
-            </div>
-            <div className="px-4 md:px-6">
-              <h2>Result</h2>
-              <Table
-                columns={columns}
-                dataSource={data}
-              />
-            </div>
+          <Content className='h-screen'>
+            <SearchUI />
           </Content>
         </Layout>
       </Layout>
