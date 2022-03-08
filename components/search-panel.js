@@ -9,7 +9,7 @@ const SearchPanel = () => {
         <Collapse defaultActiveKey={['1']} expandIconPosition={'right'}>
             <Panel header="Search Criteria" key="1">
                 <Space direction="vertical" className='md:w-1/4'>
-                        <InputNumber placeholder="Account No" style={{ width: '100%' }} />
+                        <InputNumber placeholder="Account No" style={{ width: '100%', height: '100%' }} />
                         <Input placeholder="Account Name" />
                         <DateRangePicker />
                 </Space>
