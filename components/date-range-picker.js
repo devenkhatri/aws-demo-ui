@@ -12,6 +12,7 @@ const DateRangePicker = () => {
 
     return (
         <RangePicker
+            format={'YYYY-MMM-DD'}
             ranges={{
                 Today: [moment(), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
