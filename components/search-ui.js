@@ -74,7 +74,7 @@ const SearchUI = () => {
             title: 'Document ID',
             key: 'document_id',
             dataIndex: 'document_id',
-            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            render: (text) => <a target="_top" href={`/api/get-document?docid=${text}`}><div dangerouslySetInnerHTML={{ __html: text }}></div></a>,
         },
     ];
 
