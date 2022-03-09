@@ -76,6 +76,14 @@ const SearchUI = () => {
             dataIndex: 'document_id',
             render: (text) => <a target="_top" href={`/api/get-document?docid=${text}`}><div dangerouslySetInnerHTML={{ __html: text }}></div></a>,
         },
+        {
+            title: 'Search Score',
+            dataIndex: 'score',
+            key: 'score',
+            responsive: ['md'],
+            sorter: (a, b) => a.score - b.score,
+            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+        },
     ];
 
     const data = [];
@@ -141,6 +149,7 @@ const SearchUI = () => {
                             account_no: item.account_no.snippet,
                             statement_date: item.statement_date.snippet,
                             document_id: item.document_id.snippet,
+                            score: item._meta.score,
                         });
                     })
                     // console.log("**** results", results, data)
