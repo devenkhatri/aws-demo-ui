@@ -30,7 +30,7 @@ const PageHeader = ({ title, brandname }) => {
                 {user?.isLoggedIn === true &&
                     <>
                         <li><div className='flex'><b>User: </b><div className="mr-5 ml-2 hover:text-gray-900">{user?.login}</div></div></li>
-                        <li><a href="/opensearch">OpenSearch</a></li>
+                        <li><a href="/elasticsearch">ElasticSearch</a></li>
                         <li><LinkButton
                             href="/api/logout"
                             onClick={async (e) => {

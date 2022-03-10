@@ -1,7 +1,7 @@
 {
   "engineName": "aws-demo-ui",
-  "endpointBase": "https://ui-demo.ent.us-central1.gcp.cloud.es.io",
-  "searchKey": "search-iaegbph3j2pyibps1wkruovt",
+  "endpointBase": "https://ui-demo.ent.ap-south-1.aws.elastic-cloud.com",
+  "searchKey": "search-pv2k4hy6framwm1m2uh3xbse",
   "resultFields": [
     "statement_date",
     "account_name",
