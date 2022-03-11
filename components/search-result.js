@@ -1,5 +1,6 @@
 import { Table } from 'antd';
 import { useGlobalState } from '../components/global-state'
+import Highlighter from "react-highlight-words";
 
 const SearchResult = () => {
     const [searchResult] = useGlobalState('searchResult');
@@ -8,20 +9,32 @@ const SearchResult = () => {
 
     console.log("***** searchResult", searchResult)
 
+    const highlightText = (str) => {
+        return (
+            <Highlighter
+                // highlightClassName="YourHighlightClass"
+                searchWords={[searchQuery]}
+                autoEscape={true}
+                textToHighlight={str}
+            />
+        );
+    }
+
     const columns = [
         {
             title: 'Account Name',
             dataIndex: 'account_name',
             key: 'account_name',
             sorter: (a, b) => a.account_name.length - b.account_name.length,
-            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            render: (text) => highlightText(text),
         },
         {
             title: 'Account No',
             dataIndex: 'account_no',
             key: 'account_no',
             sorter: (a, b) => a.account_no - b.account_no,
-            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            // render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            render: (text) => highlightText(text),
         },
         {
             title: 'Statement Date',
@@ -29,13 +42,13 @@ const SearchResult = () => {
             key: 'statement_date',
             //   sorter: (a, b) => a.address.length - b.address.length,
             responsive: ['md'],
-            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            render: (text) => highlightText(text),
         },
         {
             title: 'Document ID',
             key: 'document_id',
             dataIndex: 'document_id',
-            render: (text) => <a target="_top" href={`/api/get-document?docid=${text}`}><div dangerouslySetInnerHTML={{ __html: text }}></div></a>,
+            render: (text) => <a target="_top" href={`/api/get-document?docid=${text}`}>{highlightText(text)}</a>,
         },
         {
             title: 'Search Score',
@@ -62,13 +75,19 @@ const SearchResult = () => {
     return (
         <div>
             <center>
-                <h2>Found <em>{searchResult?.hits?.total?.value || 0}</em> result(s) for <em>'{searchQuery}'</em></h2>
+                <h2>Result(s) for <em>'{searchQuery}'</em></h2>
             </center>
             <Table
                 columns={columns}
                 dataSource={data}
                 className="w-full"
-                pagination={{ pageSize: 2 }}
+                loading={loading}
+                pagination={{
+                    position: ['bottomCenter'],
+                    showSizeChanger: true,
+                    showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+                }}
+
             />
         </div>
 
