@@ -1,15 +1,18 @@
-import { Collapse, Space, InputNumber, Input, Divider } from 'antd';
-import DateRangePicker from './date-range-picker';
+import { Collapse, Space, InputNumber, Input, Divider, DatePicker } from 'antd';
+import moment from 'moment';
 import Button from './button';
 import { useGlobalState, setSearchQuery, setSearchResult, resetSearch, setLoading } from '../components/global-state'
 import { useState } from 'react';
 
 const SearchPanel = () => {
     const { Panel } = Collapse;
+    const { RangePicker } = DatePicker;
 
     const [searchKeyword, setSearchKeyword] = useState();
     const [searchAccountNo, setSearchAccountNo] = useState();
     const [searchAccountName, setSearchAccountName] = useState();
+    const [searchStatementDateFrom, setSearchStatementDateFrom] = useState();
+    const [searchStatementDateTo, setSearchStatementDateTo] = useState();
 
     const [searchQuery] = useGlobalState('searchQuery');
 
@@ -18,10 +21,12 @@ const SearchPanel = () => {
         e.preventDefault();
         let query = searchKeyword;
         if (!searchKeyword) {
+            query = "";
             if (searchAccountNo) query += 'AccountNo:' + searchAccountNo
             if (searchAccountName) query += 'AccountName:' + searchAccountName
+            if (searchStatementDateFrom) query += 'StatementDate:' + searchStatementDateFrom
         }
-        if(!query) {setLoading(false);return;}
+        if (!query) { setLoading(false); return; }
         const apiURL = '/api/search?q=' + query;
         fetch(apiURL)
             .then(res => res.json())
@@ -37,6 +42,13 @@ const SearchPanel = () => {
         setSearchAccountName();
         resetSearch();
     }
+
+    function onDateChange(dates, dateStrings) {
+        setSearchStatementDateFrom(dateStrings[0])
+        setSearchStatementDateTo(dateStrings[1])
+        // console.log('From: ', dates[0], ', to: ', dates[1]);
+        console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
+    }
     return (
         <Collapse defaultActiveKey={['1']} expandIconPosition={'right'}>
             <Panel header="Search Criteria" key="1" className='text-center'>
@@ -46,7 +58,14 @@ const SearchPanel = () => {
                         <Divider>OR</Divider>
                         <InputNumber placeholder="Account No" style={{ width: '100%', height: '100%' }} value={searchAccountNo} onChange={(e) => setSearchAccountNo(e)} />
                         <Input placeholder="Account Name" value={searchAccountName} onChange={(e) => setSearchAccountName(e.target.value)} />
-                        <DateRangePicker />
+                        <RangePicker
+                            format={'DD/MM/YYYY'}
+                            ranges={{
+                                Today: [moment(), moment()],
+                                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                            }}
+                            onChange={onDateChange}
+                        />
                     </Space>
 
                     <div className='flex justify-end w-full'>
