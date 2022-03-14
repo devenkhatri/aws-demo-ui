@@ -12,7 +12,7 @@ export default async function handler( req, res ) {
     if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);
 
     res.setHeader('Content-Type', 'application/image');
-    res.setHeader('Content-Disposition', 'attachment; filename='+docid+'.png');
+    res.setHeader('Content-Disposition', 'attachment; filename='+docid);
 
     await pipeline(response.body, res);
   }
