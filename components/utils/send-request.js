@@ -1,4 +1,4 @@
-export default async function sendRequest(method, path, params) {
+export default async function sendRequest(method, path, params = null) {
     const headers = new Headers({
       "Content-Type": "application/json"
     });
@@ -8,7 +8,7 @@ export default async function sendRequest(method, path, params) {
       {
         method,
         headers,
-        body: JSON.stringify({
+        body: params && JSON.stringify({
           ...params
         }),
         credentials: "include"

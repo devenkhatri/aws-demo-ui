@@ -4,10 +4,9 @@ import { promisify } from 'util';
 
 export default async function handler( req, res ) {
     const { docid } = await req.query;
-    console.log("*******", req.query)
-
+    
     const pipeline = promisify(stream.pipeline);
-    const url = 'https://dummyimage.com/600x400&text=DocumentID='+docid;
+    const url = `${process.env.NEXT_PUBLIC_GETDOCUMENT_API_URL}${docid}`;
 
     const response = await fetch(url); 
     if (!response.ok) throw new Error(`unexpected response ${response.statusText}`);

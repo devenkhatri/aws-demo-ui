@@ -3,7 +3,6 @@ import DateRangePicker from './date-range-picker';
 import Button from './button';
 import { useGlobalState, setSearchQuery, setSearchResult, resetSearch, setLoading } from '../components/global-state'
 import { useState } from 'react';
-import useSearch from '../lib/useSearch';
 
 const SearchPanel = () => {
     const { Panel } = Collapse;
@@ -13,9 +12,6 @@ const SearchPanel = () => {
     const [searchAccountName, setSearchAccountName] = useState();
 
     const [searchQuery] = useGlobalState('searchQuery');
-    const { result } = useSearch({
-        q: searchQuery,
-    });
 
     const doSearch = (e) => {
         setLoading(true);
@@ -25,9 +21,15 @@ const SearchPanel = () => {
             if (searchAccountNo) query += 'AccountNo:' + searchAccountNo
             if (searchAccountName) query += 'AccountName:' + searchAccountName
         }
-        setSearchQuery(query);
-        setSearchResult(result);
-        if(query || result) setLoading(false);
+        if(!query) {setLoading(false);return;}
+        const apiURL = '/api/search?q=' + query;
+        fetch(apiURL)
+            .then(res => res.json())
+            .then(json => {
+                setSearchQuery(query);
+                setSearchResult(json);
+                if (query || json) setLoading(false);
+            })
     }
     const doReset = () => {
         setSearchKeyword("")

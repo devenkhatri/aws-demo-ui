@@ -7,8 +7,6 @@ const SearchResult = () => {
     const [searchQuery] = useGlobalState('searchQuery');
     const [loading] = useGlobalState('loading');
 
-    console.log("***** searchResult", searchResult)
-
     const highlightText = (str) => {
         return (
             <Highlighter
