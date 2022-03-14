@@ -1,0 +1,214 @@
+{
+  "search": {
+    "took": 41,
+    "timed_out": false,
+    "_shards": {
+      "total": 8,
+      "successful": 8,
+      "skipped": 0,
+      "failed": 0
+    },
+    "hits": {
+      "total": {
+        "value": 5,
+        "relation": "eq"
+      },
+      "max_score": 0.2876821,
+      "hits": [
+        {
+          "_index": "statement",
+          "_type": "_doc",
+          "_id": "LOB2/2022/02/23/LOB2_20220223_1.pdf",
+          "_score": 0.2876821,
+          "_source": {
+            "StatementNumber": {
+              "S": "12345"
+            },
+            "StatementStartDate": {
+              "S": "01/12/2021"
+            },
+            "DocumentId": {
+              "S": "LOB2/2022/02/23/LOB2_20220223_1.pdf"
+            },
+            "ProductType": {
+              "S": "DDA"
+            },
+            "StatementDate": {
+              "S": "28/12/2021"
+            },
+            " StreetAddress": {
+              "NULL": true
+            },
+            "AccountName": {
+              "S": "Rene Thomas"
+            },
+            "AccountNumber": {
+              "S": "123456789"
+            },
+            "Name": {
+              "S": "LOB2_20220223_1.pdf"
+            }
+          }
+        },
+        {
+          "_index": "statement",
+          "_type": "_doc",
+          "_id": "LOB1/2022/02/23/LOB1_20220223_2.pdf",
+          "_score": 0.2876821,
+          "_source": {
+            "StatementNumber": {
+              "S": "67890"
+            },
+            "StatementStartDate": {
+              "S": "01/12/2021"
+            },
+            "ArchiveType": {
+              "NULL": true
+            },
+            "MonthYear": {
+              "S": "1221"
+            },
+            "DocumentId": {
+              "S": "LOB1/2022/02/23/LOB1_20220223_2.pdf"
+            },
+            "ProductType": {
+              "S": "DDA"
+            },
+            "StatementDate": {
+              "S": "28/12/2021"
+            },
+            " StreetAddress": {
+              "NULL": true
+            },
+            "ComplianceInsertIndicator": {
+              "NULL": true
+            },
+            "AccountName": {
+              "S": "Katrina Falenbaum"
+            },
+            "AccountNumber": {
+              "S": "987654321"
+            },
+            "Name": {
+              "S": "LOB1_20220223_2.pdf"
+            }
+          }
+        },
+        {
+          "_index": "statement",
+          "_type": "_doc",
+          "_id": "LOB2/2022/02/23/LOB2_20220223_2.pdf",
+          "_score": 0.2876821,
+          "_source": {
+            "StatementNumber": {
+              "S": "67890"
+            },
+            "StatementStartDate": {
+              "S": "01/12/2021"
+            },
+            "DocumentId": {
+              "S": "LOB2/2022/02/23/LOB2_20220223_2.pdf"
+            },
+            "ProductType": {
+              "S": "DDA"
+            },
+            "StatementDate": {
+              "S": "28/12/2021"
+            },
+            " StreetAddress": {
+              "NULL": true
+            },
+            "AccountName": {
+              "S": "Katrina Falenbaum"
+            },
+            "AccountNumber": {
+              "S": "987654321"
+            },
+            "Name": {
+              "S": "LOB2_20220223_2.pdf"
+            }
+          }
+        },
+        {
+          "_index": "statement",
+          "_type": "_doc",
+          "_id": "LOB1/2022/02/23/LOB1_20220223_1.pdf",
+          "_score": 0.18232156,
+          "_source": {
+            "StatementNumber": {
+              "S": "12345"
+            },
+            "StatementStartDate": {
+              "S": "01/12/2021"
+            },
+            "ArchiveType": {
+              "NULL": true
+            },
+            "MonthYear": {
+              "S": "1221"
+            },
+            "DocumentId": {
+              "S": "LOB1/2022/02/23/LOB1_20220223_1.pdf"
+            },
+            "ProductType": {
+              "S": "DDA"
+            },
+            "StatementDate": {
+              "S": "28/12/2021"
+            },
+            " StreetAddress": {
+              "NULL": true
+            },
+            "ComplianceInsertIndicator": {
+              "NULL": true
+            },
+            "AccountName": {
+              "S": "Rene Thomas"
+            },
+            "AccountNumber": {
+              "S": "123456789"
+            },
+            "Name": {
+              "S": "LOB1_20220223_1.pdf"
+            }
+          }
+        },
+        {
+          "_index": "statement",
+          "_type": "_doc",
+          "_id": "LOB3/2022/02/23/LOB3_20220223_2.pdf",
+          "_score": 0.18232156,
+          "_source": {
+            "StatementNumber": {
+              "S": "67890"
+            },
+            "StatementStartDate": {
+              "S": "01/12/2021"
+            },
+            "DocumentId": {
+              "S": "LOB3/2022/02/23/LOB3_20220223_2.pdf"
+            },
+            "ProductType": {
+              "S": "DDA"
+            },
+            "StatementDate": {
+              "S": "28/12/2021"
+            },
+            " StreetAddress": {
+              "NULL": true
+            },
+            "AccountName": {
+              "S": "Katrina Falenbaum"
+            },
+            "AccountNumber": {
+              "S": "987654321"
+            },
+            "Name": {
+              "S": "LOB3_20220223_2.pdf"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
