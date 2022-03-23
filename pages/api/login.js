@@ -12,11 +12,12 @@ export default withIronSessionApiRoute(async (req, res) => {
   }
 
   try {
-    const {
-      data: { login, avatar_url },
-    } = await octokit.rest.users.getByUsername({ username });
+    // const {
+    //   data: { login, avatar_url },
+    // } = await octokit.rest.users.getByUsername({ username });
+    const login = username;
 
-    const user = { isLoggedIn: true, login, avatarUrl: avatar_url };
+    const user = { isLoggedIn: true, login, avatarUrl: null };
     req.session.user = user;
     await req.session.save();
     res.json(user);

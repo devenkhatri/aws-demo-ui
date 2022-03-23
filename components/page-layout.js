@@ -11,13 +11,15 @@ const PageLayout = ({ children, title, brandname }) => {
     const defaultbrandname = process.env.NEXT_PUBLIC_BRANDNAME;
     const defaulttitle = process.env.NEXT_PUBLIC_SITETITLE;
     return (
-        <div>
+        <ion-app>
             <PageHeader title={title || defaulttitle} brandname={brandname || defaultbrandname} />
-            <Content className="flex w-full flex-1 flex-col">
-                {children}
-            </Content>
-            <PageFooter brandname={brandname || defaultbrandname} />
-        </div>
+            <ion-content fullscreen>
+                <Content className="flex w-full flex-1 flex-col">
+                    {children}
+                </Content>                
+                <PageFooter brandname={brandname || defaultbrandname} />
+            </ion-content>            
+        </ion-app>
     );
 }
 
