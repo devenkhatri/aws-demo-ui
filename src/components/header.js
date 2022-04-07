@@ -5,6 +5,9 @@ import { Flex, useTheme, View, Button, Heading, Text } from "@aws-amplify/ui-rea
 
 const Header = ({ siteTitle, signOut, user }) => {
   const { tokens } = useTheme();
+  console.log("***** user",user)
+  // Returns an array of groups
+  const groups = user && user.signInUserSession.accessToken.payload["cognito:groups"];
   return (
     <header
       style={{
@@ -26,7 +29,7 @@ const Header = ({ siteTitle, signOut, user }) => {
         </View>
         <View width="100%">
           <Flex justifyContent="flex-end" alignItems="center" alignContent="center" direction={{ base: 'column', large: 'row' }}>
-            <Text><strong>User:</strong> {user && user.username}</Text>
+            <Text><strong>User:</strong> {user && user.username}, <strong>Group: </strong>{groups}</Text>
             <Button variation="primary" onClick={signOut}>Sign out</Button>
           </Flex>
         </View>

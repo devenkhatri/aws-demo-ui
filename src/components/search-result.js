@@ -7,7 +7,7 @@ import { Flex } from '@aws-amplify/ui-react';
 const SearchResult = () => {
     const [searchResult] = useGlobalState('searchResult');
     const [searchQuery] = useGlobalState('searchQuery');
-    const [loading] = useGlobalState('loading');
+    const [loading] = useGlobalState('loading');    
 
     const highlightText = (str) => {
         return (
@@ -71,6 +71,8 @@ const SearchResult = () => {
             score: item._score,
         });
     })
+    console.log("********* searchResult", searchResult)
+    console.log("****** data",data)
 
     return (
         <Flex paddingTop={'1rem'} direction="column">

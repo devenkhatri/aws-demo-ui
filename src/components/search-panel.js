@@ -32,6 +32,7 @@ const SearchPanel = () => {
             .then(res => res.json())
             .then(json => {
                 setSearchQuery(query);
+                console.log("****** result",json)
                 setSearchResult(json);
                 if (query || json) setLoading(false);
             })
