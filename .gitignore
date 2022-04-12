@@ -103,6 +103,7 @@ dist
 # TernJS port file
 .tern-port
 .env.local
+public
 public/0eceb729-d53d9f9499865396743d.js
 public/0eceb729-d53d9f9499865396743d.js.map
 public/231-b2d35ff9bb1952aa22d1.js
@@ -149,4 +150,14 @@ public/page-data/dev-404-page/page-data.json
 public/page-data/page-2/page-data.json
 public/page-data/using-typescript/page-data.json
 public/using-typescript/index.html
+public/page-data/dev-404-page/page-data.json
+public/commons-60aad73b062db115be9f.js
+public/commons-60aad73b062db115be9f.js.LICENSE.txt
+public/commons-60aad73b062db115be9f.js.map
+public/component---src-pages-index-js-6ec6f71b15c162301040.js
+public/component---src-pages-index-js-6ec6f71b15c162301040.js.LICENSE.txt
+public/component---src-pages-index-js-6ec6f71b15c162301040.js.map
+public/webpack-runtime-4da617d5620cf582b8d6.js
+public/webpack-runtime-4da617d5620cf582b8d6.js.map
+public/page-data/dev-404-page/page-data.json
 public/page-data/dev-404-page/page-data.json

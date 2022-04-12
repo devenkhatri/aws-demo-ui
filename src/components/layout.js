@@ -35,9 +35,9 @@ const theme = {
     colors: {
       font: {
         // primary: { value: '#f97316' },
-      }, 
-      brand: {        
-        primary: {          
+      },
+      brand: {
+        primary: {
           // 10: { value: '#FFF0DB' },
           // 20: { value: '#FFC56D' },
           // 40: { value: '#FFB649' },
@@ -46,7 +46,7 @@ const theme = {
           // 90: { value: '#C87800' },
           // 100: { value: '#FF9900' },
         },
-      },      
+      },
     },
   },
 };
@@ -196,29 +196,34 @@ const Layout = ({ children }) => {
     }
   `)
 
+  //Temporary logging of current API URLs
+  const TempLog = [
+    process.env.GATSBY_SEARCH_API_URL,
+    process.env.GATSBY_GETDOCUMENT_API_URL
+  ]
+  console.log("*** TempLog", TempLog)
+
   return (
     <AmplifyProvider theme={theme}>
-    <Authenticator variation="modal" hideSignUp={true} components={components}>
-      {({ signOut, user }) => (
-        <>
-          <Header siteTitle={data.site.siteMetadata?.title || `Title`} signOut={signOut} user={user} />
-          <View>
-            <main>{children}</main>
-            <footer
-              style={{
-                marginTop: `2rem`,
-              }}
-            >
-              <Flex justifyContent="center">
-              © {new Date().getFullYear()}, Built with
-              {` `}
-              <a href="https://www.gatsbyjs.com">Gatsby</a>
-              </Flex>
-            </footer>
-          </View>
-        </>
-      )}
-    </Authenticator>
+      <Authenticator variation="modal" hideSignUp={true} components={components}>
+        {({ signOut, user }) => (
+          <>
+            <Header siteTitle={data.site.siteMetadata?.title || `Title`} signOut={signOut} user={user} />
+            <View>
+              <main>{children}</main>
+              <footer
+                style={{
+                  marginTop: `2rem`,
+                }}
+              >
+                <Flex justifyContent="center">
+                  © Copyright `{process.env.GATSBY_SITETITLE}` {new Date().getFullYear()}.<Text variation="info"><small>Last Build # {new Date().toUTCString()}</small></Text>
+                </Flex>
+              </footer>
+            </View>
+          </>
+        )}
+      </Authenticator>
     </AmplifyProvider>
   )
 }

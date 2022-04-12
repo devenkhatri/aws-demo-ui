@@ -27,7 +27,7 @@ const SearchPanel = () => {
             if (searchStatementDateFrom) query += 'StatementDate:' + searchStatementDateFrom
         }
         if (!query) { setLoading(false); return; }
-        const apiURL = '/api/search?q=' + query;
+        const apiURL = process.env.GATSBY_SEARCH_API_URL + query;
         fetch(apiURL)
             .then(res => res.json())
             .then(json => {
