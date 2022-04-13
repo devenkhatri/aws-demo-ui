@@ -67,7 +67,7 @@ const SearchResult = () => {
             account_name: item._source.AccountName.S,
             account_no: item._source.AccountNumber.S,
             statement_date: item._source.StatementDate.S,
-            document_id: item._source.DocumentId.S,
+            document_id: item._id,
             score: item._score,
         });
     })

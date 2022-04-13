@@ -8,6 +8,7 @@
     "@aws-amplify/ui-react": "^2.14.1",
     "antd": "^4.19.5",
     "aws-amplify": "^4.3.19",
+    "axios": "^0.26.1",
     "gatsby": "^4.11.1",
     "gatsby-plugin-gatsby-cloud": "^4.11.1",
     "gatsby-plugin-image": "^2.11.1",

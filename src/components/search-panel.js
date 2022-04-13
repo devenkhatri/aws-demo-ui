@@ -4,6 +4,9 @@ import { useGlobalState, setSearchQuery, setSearchResult, resetSearch, setLoadin
 import React, { useState } from 'react';
 import { Button, Flex } from '@aws-amplify/ui-react';
 import sendRequest from './utils/send-request';
+import { API, Auth } from 'aws-amplify';
+import axios from 'axios';
+
 
 const SearchPanel = () => {
     const { Panel } = Collapse;
@@ -16,6 +19,10 @@ const SearchPanel = () => {
     const [searchStatementDateTo, setSearchStatementDateTo] = useState();
 
     const [searchQuery] = useGlobalState('searchQuery');
+    const [currentUser] = useGlobalState('currentUser');
+
+    // console.log("******* currentUser", currentUser && currentUser.signInUserSession.accessToken.jwtToken, (await Auth.currentSession()).getAccessToken().getJwtToken())
+    console.log("******* currentUser", currentUser && currentUser.signInUserSession.accessToken.jwtToken)
 
     const doSearch = (e) => {
         setLoading(true);
@@ -29,16 +36,51 @@ const SearchPanel = () => {
         }
         if (!query) { setLoading(false); return; }
         const apiURL = process.env.GATSBY_SEARCH_API_URL + query;
-
+        console.log("****** API URL", apiURL)
         try {
-            fetch(apiURL)
-                .then(res => res.json())
-                .then(json => {
+            axios.get(apiURL)
+                .then((response) => {
+                    console.log('****** API Response', response)
                     setSearchQuery(query);
-                    console.log("****** API Result", json)
-                    setSearchResult(json);
-                    if (query || json) setLoading(false);
+                    setSearchResult(response.data);
+                    if (query || response.status) setLoading(false);
                 })
+                .catch((error) => {
+                    console.log('****** API Error', error)
+                    setLoading(false);
+                });
+            // const APIName = 'Heartbeat';
+            // const URL = '/';
+            // const options = {
+            //     headers: { "Content-Type": "application/json" },
+            //     response: true
+            // };
+            // API.get(APIName, URL, options)
+            //     .then((response) => {
+            //         console.log('****** API Response', response)
+            //         return response
+            //     })
+            //     .catch((error) => {
+            //         console.log('****** API Error', error)
+            //         return error
+            //     })
+
+            // const options = {
+            //     headers: { 
+            //         "Content-Type": "application/json" 
+            //         // "x-api-key": currentUser && currentUser.signInUserSession.accessToken.jwtToken
+            //     },
+            //     // mode: 'no-cors',
+            //     method: "GET"
+            // };
+            // fetch(apiURL, options)
+            //     .then(res => { console.log("****** API Response", res); res.json(); })
+            //     .then(json => {
+            //         setSearchQuery(query);
+            //         console.log("****** API Result", json)
+            //         setSearchResult(json);
+            //         if (query || json) setLoading(false);
+            //     })
         } catch (error) {
             console.log("****** API Error", error);
             setLoading(false);

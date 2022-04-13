@@ -19,6 +19,7 @@ import { Amplify } from 'aws-amplify';
 import { Authenticator, Heading, Image, Text, Flex, useAuthenticator, useTheme, View, Button } from '@aws-amplify/ui-react';
 
 import { AmplifyProvider, Theme } from '@aws-amplify/ui-react';
+import { setCurrentUser } from "./global-state";
 
 Amplify.configure({
   Auth: {
@@ -206,23 +207,26 @@ const Layout = ({ children }) => {
   return (
     <AmplifyProvider theme={theme}>
       <Authenticator variation="modal" hideSignUp={true} components={components}>
-        {({ signOut, user }) => (
-          <>
-            <Header siteTitle={data.site.siteMetadata?.title || `Title`} signOut={signOut} user={user} />
-            <View>
-              <main>{children}</main>
-              <footer
-                style={{
-                  marginTop: `2rem`,
-                }}
-              >
-                <Flex justifyContent="center">
-                  © Copyright `{process.env.GATSBY_SITETITLE}` {new Date().getFullYear()}.<Text variation="info"><small>Last Build # {new Date().toUTCString()}</small></Text>
-                </Flex>
-              </footer>
-            </View>
-          </>
-        )}
+        {({ signOut, user }) => {
+          setCurrentUser(user);
+          return (
+            <>
+              <Header siteTitle={data.site.siteMetadata?.title || `Title`} signOut={signOut} user={user} />
+              <View>
+                <main>{children}</main>
+                <footer
+                  style={{
+                    marginTop: `2rem`,
+                  }}
+                >
+                  <Flex justifyContent="center">
+                    © Copyright `{process.env.GATSBY_SITETITLE}` {new Date().getFullYear()}.<Text variation="info"><small>Last Build # {new Date().toUTCString()}</small></Text>
+                  </Flex>
+                </footer>
+              </View>
+            </>
+          )
+        }}
       </Authenticator>
     </AmplifyProvider>
   )
