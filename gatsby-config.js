@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `AWS Demo UI`,
     description: `UI for AWS Demo`,
-    author: `@gatsbyjs`,
+    author: `TCS`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
   },
   plugins: [
@@ -20,15 +20,15 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `AWS Demo UI`,
+        short_name: `AWS Demo UI`,
         start_url: `/`,
-        background_color: `#663399`,
+        background_color: `#40aabf`,
         // This will impact how browsers show your PWA/website
         // https://css-tricks.com/meta-theme-color-and-trickery/
         // theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/logo.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

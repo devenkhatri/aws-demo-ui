@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "aws-demo-ui",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "UI for AWS Demo",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Deven Goratela <deven.goratela@tcs.com>",
   "dependencies": {
     "@aws-amplify/ui-react": "^2.14.1",
     "antd": "^4.19.5",
@@ -36,10 +36,10 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "build": "GATSBY_APP_BUILD_TIME=`date +%Y/%m/%d' - '%H:%M:%S`  gatsby build",
+    "develop": "GATSBY_APP_BUILD_TIME=`date +%Y/%m/%d' - '%H:%M:%S`  gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "gatsby develop",
+    "start": "GATSBY_APP_BUILD_TIME=`date +%Y/%m/%d' - '%H:%M:%S` gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"

@@ -48,7 +48,7 @@ const SearchResult = () => {
             title: 'Document ID',
             key: 'document_id',
             dataIndex: 'document_id',
-            render: (text) => <a target="_blank" href={`${process.env.GATSBY_GETDOCUMENT_API_URL}${text}`}>{highlightText(text)}</a>,
+            render: (text) => <a target="_blank" rel="noreferrer" href={`${process.env.GATSBY_GETDOCUMENT_API_URL}${text}`}>{highlightText(text)}</a>,
         },
         {
             title: 'Search Score',

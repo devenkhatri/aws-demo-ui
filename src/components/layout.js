@@ -13,12 +13,13 @@ import Header from "./header"
 import 'antd/dist/antd.css';
 import '@aws-amplify/ui-react/styles.css';
 import "./layout.css"
+import Logo from '../images/logo.png';
 
 import { Amplify } from 'aws-amplify';
 
 import { Authenticator, Heading, Image, Text, Flex, useAuthenticator, useTheme, View, Button } from '@aws-amplify/ui-react';
 
-import { AmplifyProvider, Theme } from '@aws-amplify/ui-react';
+import { AmplifyProvider } from '@aws-amplify/ui-react';
 import { setCurrentUser } from "./global-state";
 
 Amplify.configure({
@@ -55,8 +56,8 @@ const theme = {
 const amplifyHeader = (tokens, heading) => (
   <View textAlign="center" padding={tokens.space.large}>
     <Image
-      alt="Amplify logo"
-      src="https://docs.amplify.aws/assets/logo-dark.svg"
+      src={Logo}
+      alt="Logo"
     />
     {heading && <Heading
       padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
@@ -220,7 +221,13 @@ const Layout = ({ children }) => {
                   }}
                 >
                   <Flex justifyContent="center">
-                    © Copyright `{process.env.GATSBY_SITETITLE}` {new Date().getFullYear()}.<Text variation="info"><small>Last Build # {new Date().toUTCString()}</small></Text>
+                    <Image
+                      width="24px"
+                      height="18px"
+                      src={Logo}
+                      alt="Logo"
+                    />
+                    © Copyright `{process.env.GATSBY_SITETITLE}` {new Date().getFullYear()}.<Text variation="info"><small>Last Build # {process.env.GATSBY_APP_BUILD_TIME}</small></Text>
                   </Flex>
                 </footer>
               </View>

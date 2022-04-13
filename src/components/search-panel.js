@@ -3,8 +3,6 @@ import moment from 'moment';
 import { useGlobalState, setSearchQuery, setSearchResult, resetSearch, setLoading } from '../components/global-state'
 import React, { useState } from 'react';
 import { Button, Flex } from '@aws-amplify/ui-react';
-import sendRequest from './utils/send-request';
-import { API, Auth } from 'aws-amplify';
 import axios from 'axios';
 
 
