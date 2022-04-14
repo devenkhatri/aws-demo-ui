@@ -1,13 +1,44 @@
 import { Table } from 'antd';
 import { useGlobalState } from '../components/global-state'
 import Highlighter from "react-highlight-words";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Flex } from '@aws-amplify/ui-react';
 
 const SearchResult = () => {
     const [searchResult] = useGlobalState('searchResult');
     const [searchQuery] = useGlobalState('searchQuery');
-    const [loading] = useGlobalState('loading');    
+    const [loading] = useGlobalState('loading');
+    const [currentUser] = useGlobalState('currentUser');
+    const [userToken, setUserToken] = useState();
+    useEffect(() => {
+        //getting logged-in user token
+        setUserToken(currentUser && currentUser.signInUserSession.getIdToken().getJwtToken())
+    }, []);
+
+    const downloadFile = (docId) => {
+        const apiURL = process.env.GATSBY_GETDOCUMENT_API_URL + docId;
+        const config = {
+            headers: {
+                'Authorization': userToken
+            },
+            responseType: 'arraybuffer'
+            // responseType: 'blob'
+        };
+        axios.get(apiURL, config)
+            .then((response) => {
+                console.log('****** GETDDOC API Response', response)
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', docId);
+                document.body.appendChild(link);
+                link.click();
+            })
+            .catch((error) => {
+                console.log('****** GETDDOC API Error', error)
+            });
+    }
 
     const highlightText = (str) => {
         return (
@@ -48,7 +79,7 @@ const SearchResult = () => {
             title: 'Document ID',
             key: 'document_id',
             dataIndex: 'document_id',
-            render: (text) => <a target="_blank" rel="noreferrer" href={`${process.env.GATSBY_GETDOCUMENT_API_URL}${text}`}>{highlightText(text)}</a>,
+            render: (text) => <a onClick={() => downloadFile(text)}>{highlightText(text)}</a>,
         },
         {
             title: 'Search Score',
@@ -72,7 +103,7 @@ const SearchResult = () => {
         });
     })
     console.log("********* searchResult", searchResult)
-    console.log("****** data",data)
+    console.log("****** data", data)
 
     return (
         <Flex paddingTop={'1rem'} direction="column">

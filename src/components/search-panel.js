@@ -28,6 +28,7 @@ const SearchPanel = () => {
     }, []);
 
     const doSearch = (e) => {
+        setErrorMessage();
         setLoading(true);
         e.preventDefault();
         let query = "search=" + searchKeyword;
