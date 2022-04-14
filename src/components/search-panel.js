@@ -36,7 +36,13 @@ const SearchPanel = () => {
         const apiURL = process.env.GATSBY_SEARCH_API_URL + query;
         console.log("****** API URL", apiURL)
         try {
-            axios.get(apiURL)
+            const config = {
+                headers: {
+                    'X-Api-Key': currentUser && currentUser.signInUserSession.accessToken.jwtToken,
+                    'Authorization': 'Bearer ' + (currentUser && currentUser.signInUserSession.accessToken.jwtToken)
+                }
+            };
+            axios.get(apiURL, config)
                 .then((response) => {
                     console.log('****** API Response', response)
                     setSearchQuery(query);
