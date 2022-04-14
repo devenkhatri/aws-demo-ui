@@ -30,16 +30,19 @@ const SearchPanel = () => {
     const doSearch = (e) => {
         setLoading(true);
         e.preventDefault();
-        let query = searchKeyword;
+        let query = "search=" + searchKeyword;
         if (!searchKeyword) {
             query = "";
-            if (searchAccountNo) query += 'AccountNumber:' + searchAccountNo
-            if (searchAccountName) query += 'AccountName:' + searchAccountName
-            if (searchStatementDateFrom) query += 'FromDate:' + searchStatementDateFrom
-            if (searchStatementDateTo) query += 'ToDate:' + searchStatementDateTo
+            if (searchAccountNo) query += 'AccountNumber=' + searchAccountNo
+            if (query && searchAccountName) query += '&'
+            if (searchAccountName) query += 'AccountName=' + searchAccountName
+            if (query && searchStatementDateFrom) query += '&'
+            if (searchStatementDateFrom) query += 'FromDate=' + searchStatementDateFrom
+            if (query && searchStatementDateTo) query += '&'
+            if (searchStatementDateTo) query += 'ToDate=' + searchStatementDateTo
         }
         if (!query) { setLoading(false); setErrorMessage("No Input Provided !!"); return; }
-        const apiURL = process.env.GATSBY_SEARCH_API_URL + query;
+        const apiURL = process.env.GATSBY_SEARCH_API_URL + "?" + query;
         console.log("****** API URL", apiURL)
         try {
             const config = {
