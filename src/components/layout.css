@@ -414,7 +414,7 @@ pre {
   word-wrap: normal;
   padding: 1.45rem;
 }
-table {
+/* table {
   margin-left: 0;
   margin-right: 0;
   margin-top: 0;
@@ -427,7 +427,7 @@ table {
   line-height: 1.45rem;
   border-collapse: collapse;
   width: 100%;
-}
+} */
 blockquote {
   margin-left: 1.45rem;
   margin-right: 1.45rem;
@@ -487,9 +487,9 @@ strong {
 dt {
   font-weight: bold;
 }
-th {
+/* th {
   font-weight: bold;
-}
+} */
 li {
   margin-bottom: calc(1.45rem / 2);
 }
@@ -541,7 +541,7 @@ acronym {
   border-bottom: 1px dotted hsla(0, 0%, 0%, 0.5);
   cursor: help;
 }
-thead {
+/* thead {
   text-align: left;
 }
 td,
@@ -564,7 +564,7 @@ td:first-child {
 th:last-child,
 td:last-child {
   padding-right: 0;
-}
+} */
 tt,
 code {
   background-color: hsla(0, 0%, 0%, 0.04);

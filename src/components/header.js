@@ -8,7 +8,7 @@ const Header = ({ siteTitle, signOut, user }) => {
   const { tokens } = useTheme();
   console.log("***** user", user)
   // Returns an array of groups
-  const groups = user && user.signInUserSession.accessToken.payload["cognito:groups"];
+  const groups = user && user.signInUserSession.getIdToken().payload["cognito:groups"];
   return (
     <header
       style={{
@@ -38,7 +38,7 @@ const Header = ({ siteTitle, signOut, user }) => {
         </View>
         <View width="100%">
           <Flex justifyContent="flex-end" alignItems="center" alignContent="center" direction={{ base: 'column', large: 'row' }}>
-            <Text><strong>User:</strong> {user && user.username}, <strong>Group: </strong>{groups}</Text>
+            <Text><strong>User:</strong> {user && (user.attributes.name || user.attributes.email || user.username)}, <strong>Group: </strong>{groups}</Text>
             <Button variation="primary" onClick={signOut}>Sign out</Button>
           </Flex>
         </View>

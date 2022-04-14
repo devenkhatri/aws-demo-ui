@@ -1,8 +1,8 @@
 import { Collapse, Space, InputNumber, Input, Divider, DatePicker } from 'antd';
 import moment from 'moment';
 import { useGlobalState, setSearchQuery, setSearchResult, resetSearch, setLoading } from '../components/global-state'
-import React, { useState } from 'react';
-import { Button, Flex } from '@aws-amplify/ui-react';
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, Flex, View } from '@aws-amplify/ui-react';
 import axios from 'axios';
 
 
@@ -16,11 +16,16 @@ const SearchPanel = () => {
     const [searchStatementDateFrom, setSearchStatementDateFrom] = useState();
     const [searchStatementDateTo, setSearchStatementDateTo] = useState();
 
-    const [searchQuery] = useGlobalState('searchQuery');
     const [currentUser] = useGlobalState('currentUser');
 
-    // console.log("******* currentUser", currentUser && currentUser.signInUserSession.accessToken.jwtToken, (await Auth.currentSession()).getAccessToken().getJwtToken())
-    console.log("******* currentUser", currentUser && currentUser.signInUserSession.accessToken.jwtToken)
+    const [userToken, setUserToken] = useState();
+
+    const [errorMessage, setErrorMessage] = useState();
+
+    useEffect(() => {
+        //getting logged-in user token
+        setUserToken(currentUser && currentUser.signInUserSession.getIdToken().getJwtToken())
+    }, []);
 
     const doSearch = (e) => {
         setLoading(true);
@@ -28,18 +33,18 @@ const SearchPanel = () => {
         let query = searchKeyword;
         if (!searchKeyword) {
             query = "";
-            if (searchAccountNo) query += 'AccountNo:' + searchAccountNo
+            if (searchAccountNo) query += 'AccountNumber:' + searchAccountNo
             if (searchAccountName) query += 'AccountName:' + searchAccountName
-            if (searchStatementDateFrom) query += 'StatementDate:' + searchStatementDateFrom
+            if (searchStatementDateFrom) query += 'FromDate:' + searchStatementDateFrom
+            if (searchStatementDateTo) query += 'ToDate:' + searchStatementDateTo
         }
-        if (!query) { setLoading(false); return; }
+        if (!query) { setLoading(false); setErrorMessage("No Input Provided !!"); return; }
         const apiURL = process.env.GATSBY_SEARCH_API_URL + query;
         console.log("****** API URL", apiURL)
         try {
             const config = {
                 headers: {
-                    'X-Api-Key': currentUser && currentUser.signInUserSession.accessToken.jwtToken,
-                    'Authorization': 'Bearer ' + (currentUser && currentUser.signInUserSession.accessToken.jwtToken)
+                    'Authorization': userToken
                 }
             };
             axios.get(apiURL, config)
@@ -51,6 +56,7 @@ const SearchPanel = () => {
                 })
                 .catch((error) => {
                     console.log('****** API Error', error)
+                    setErrorMessage(`${error}`);
                     setLoading(false);
                 });
             // const APIName = 'Heartbeat';
@@ -87,10 +93,12 @@ const SearchPanel = () => {
             //     })
         } catch (error) {
             console.log("****** API Error", error);
+            setErrorMessage(`${error}`);
             setLoading(false);
         }
     }
     const doReset = () => {
+        setErrorMessage();
         setSearchKeyword("")
         setSearchAccountNo();
         setSearchAccountName();
@@ -129,6 +137,15 @@ const SearchPanel = () => {
                                 <Button variation='primary' type="submit" onClick={doSearch}>Search</Button>
                             </Space>
                         </Flex>
+
+                        <View paddingTop="1rem">
+                            {errorMessage &&
+                                <Alert variation="error">
+                                    {errorMessage}
+                                </Alert>
+                            }
+                        </View>
+
                     </form>
                 </Flex>
             </Panel>
