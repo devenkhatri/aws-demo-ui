@@ -25,9 +25,9 @@ import { setCurrentUser } from "./global-state";
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
-    region: 'us-east-1',
-    userPoolId: 'ap-south-1_xSlYSkp0w',
-    userPoolWebClientId: '1qlfaqcfru65qknri4jpf7rpt'
+    region: process.env.GATSBY_COGNITO_REGION,
+    userPoolId: process.env.GATSBY_COGNITO_USERPOOLID,
+    userPoolWebClientId: process.env.GATSBY_COGNITO_USERPOOLWEBCLIENTID
   }
 })
 

@@ -36,10 +36,10 @@
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "GATSBY_APP_BUILD_TIME=`date +%Y/%m/%d' - '%H:%M:%S`  gatsby build",
-    "develop": "GATSBY_APP_BUILD_TIME=`date +%Y/%m/%d' - '%H:%M:%S`  gatsby develop",
+    "build": "GATSBY_APP_BUILD_TIME=`date +%Y%m%d'-'%H:%M:%S`  gatsby build",
+    "develop": "GATSBY_APP_BUILD_TIME=`date +%Y%m%d'-'%H:%M:%S`  gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "GATSBY_APP_BUILD_TIME=`date +%Y/%m/%d' - '%H:%M:%S` gatsby develop",
+    "start": "GATSBY_APP_BUILD_TIME=`date +%Y%m%d'-'%H:%M:%S` gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
