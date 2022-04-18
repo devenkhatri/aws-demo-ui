@@ -13,8 +13,7 @@ const SearchPanel = () => {
     const [searchKeyword, setSearchKeyword] = useState();
     const [searchAccountNo, setSearchAccountNo] = useState();
     const [searchAccountName, setSearchAccountName] = useState();
-    const [searchStatementDateFrom, setSearchStatementDateFrom] = useState();
-    const [searchStatementDateTo, setSearchStatementDateTo] = useState();
+    const [searchDateRange, setSearchDateRange] = useState(null);
 
     const [currentUser] = useGlobalState('currentUser');
 
@@ -28,22 +27,19 @@ const SearchPanel = () => {
     }, []);
 
     const doSearch = (e) => {
-        setErrorMessage();
+        setErrorMessage(null);
         setLoading(true);
         e.preventDefault();
-        let query = "search=" + searchKeyword;
+        const sizeParam = "size=100";
+        let query = "&search=" + searchKeyword;
         if (!searchKeyword) {
-            query = "";
-            if (searchAccountNo) query += 'AccountNumber=' + searchAccountNo
-            if (query && searchAccountName) query += '&'
-            if (searchAccountName) query += 'AccountName=' + searchAccountName
-            if (query && searchStatementDateFrom) query += '&'
-            if (searchStatementDateFrom) query += 'FromDate=' + searchStatementDateFrom
-            if (query && searchStatementDateTo) query += '&'
-            if (searchStatementDateTo) query += 'ToDate=' + searchStatementDateTo
+            query = '';
+            if (searchAccountNo) query += '&AccountNumber=' + searchAccountNo
+            if (searchAccountName) query += '&AccountName=' + searchAccountName
+            if (searchDateRange && searchDateRange.length>0) query += '&FromDate=' + moment(searchDateRange[0]).format("DD/MM/YYYY") + '&ToDate=' + moment(searchDateRange[1]).format("DD/MM/YYYY")
         }
         if (!query) { setLoading(false); setErrorMessage("No Input Provided !!"); return; }
-        const apiURL = process.env.GATSBY_SEARCH_API_URL + "?" + query;
+        const apiURL = process.env.GATSBY_SEARCH_API_URL + "?" + sizeParam + query;
         console.log("****** API URL", apiURL)
         try {
             const config = {
@@ -80,8 +76,8 @@ const SearchPanel = () => {
             //     })
 
             // const options = {
-            //     headers: { 
-            //         "Content-Type": "application/json" 
+            //     headers: {
+            //         "Content-Type": "application/json"
             //         // "x-api-key": currentUser && currentUser.signInUserSession.accessToken.jwtToken
             //     },
             //     // mode: 'no-cors',
@@ -106,22 +102,17 @@ const SearchPanel = () => {
         setSearchKeyword("")
         setSearchAccountNo();
         setSearchAccountName();
+        setSearchDateRange([]);
         resetSearch();
     }
 
-    function onDateChange(dates, dateStrings) {
-        setSearchStatementDateFrom(dateStrings[0])
-        setSearchStatementDateTo(dateStrings[1])
-        // console.log('From: ', dates[0], ', to: ', dates[1]);
-        console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
-    }
     return (
         <Collapse defaultActiveKey={['1']} expandIconPosition={'right'}>
             <Panel header="Search Criteria" key="1" className='text-center'>
                 <Flex justifyContent={'center'}>
                     <form>
                         <Space direction="vertical" className='md:w-1/4 w-full text-left'>
-                            <Input placeholder="Search Keyword" className='w-full' value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} />
+                            <Input placeholder="Search Keyword" className='w-full' status={errorMessage && 'error'} value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} />
                             <Divider>OR</Divider>
                             <InputNumber placeholder="Account No" style={{ width: '100%', height: '100%' }} value={searchAccountNo} onChange={(e) => setSearchAccountNo(e)} />
                             <Input placeholder="Account Name" value={searchAccountName} onChange={(e) => setSearchAccountName(e.target.value)} />
@@ -131,7 +122,8 @@ const SearchPanel = () => {
                                     Today: [moment(), moment()],
                                     'This Month': [moment().startOf('month'), moment().endOf('month')],
                                 }}
-                                onChange={onDateChange}
+                                value={searchDateRange}
+                                onChange={setSearchDateRange}
                             />
                         </Space>
 

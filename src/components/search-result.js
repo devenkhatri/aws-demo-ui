@@ -20,7 +20,8 @@ const SearchResult = () => {
         const apiURL = process.env.GATSBY_GETDOCUMENT_API_URL + docId;
         const config = {
             headers: {
-                'Authorization': userToken
+                'Authorization': userToken,
+                'Accept': 'application/pdf'
             },
             responseType: 'arraybuffer'
             // responseType: 'blob'
@@ -76,29 +77,39 @@ const SearchResult = () => {
             render: (text) => highlightText(text),
         },
         {
-            title: 'Document ID',
-            key: 'document_id',
-            dataIndex: 'document_id',
-            render: (text) => <a onClick={() => downloadFile(text)}>{highlightText(text)}</a>,
+            title: 'Document',
+            key: 'document_name',
+            dataIndex: 'document_name',
+            render: (text, record) => (
+                <a onClick={() => downloadFile(record.key)}>{highlightText(text)}</a>
+              ),
         },
         {
-            title: 'Search Score',
-            dataIndex: 'score',
-            key: 'score',
+            title: 'Product Type',
+            dataIndex: 'product_type',
+            key: 'product_type',
             responsive: ['md'],
-            sorter: (a, b) => a.score - b.score,
-            render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+            render: (text) => highlightText(text),
         },
+        // {
+        //     title: 'Search Score',
+        //     dataIndex: 'score',
+        //     key: 'score',
+        //     responsive: ['md'],
+        //     sorter: (a, b) => a.score - b.score,
+        //     render: (text) => <div dangerouslySetInnerHTML={{ __html: text }}></div>,
+        // },
     ];
 
     const data = [];
     searchResult && searchResult.hits?.hits.map((item) => {
         data.push({
             key: item._id,
-            account_name: item._source.AccountName.S,
-            account_no: item._source.AccountNumber.S,
-            statement_date: item._source.StatementDate.S,
-            document_id: item._id,
+            account_name: item._source.AccountName?.S,
+            account_no: item._source.AccountNumber?.S,
+            statement_date: item._source.StatementDate?.S,
+            document_name: item._source.Name?.S,
+            product_type: item._source.ProductType?.S,
             score: item._score,
         });
     })
