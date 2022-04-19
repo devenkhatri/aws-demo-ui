@@ -13,6 +13,7 @@ const SearchPanel = () => {
     const [searchKeyword, setSearchKeyword] = useState();
     const [searchAccountNo, setSearchAccountNo] = useState();
     const [searchAccountName, setSearchAccountName] = useState();
+    const [searchLob, setSearchLob] = useState('LOB1');
     const [searchDateRange, setSearchDateRange] = useState(null);
 
     const [currentUser] = useGlobalState('currentUser');
@@ -36,6 +37,7 @@ const SearchPanel = () => {
             query = '';
             if (searchAccountNo) query += '&AccountNumber=' + searchAccountNo
             if (searchAccountName) query += '&AccountName=' + searchAccountName
+            if (searchLob) query += '&lob=' + searchLob
             if (searchDateRange && searchDateRange.length>0) query += '&FromDate=' + moment(searchDateRange[0]).format("DD/MM/YYYY") + '&ToDate=' + moment(searchDateRange[1]).format("DD/MM/YYYY")
         }
         if (!query) { setLoading(false); setErrorMessage("No Input Provided !!"); return; }
@@ -116,6 +118,7 @@ const SearchPanel = () => {
                             <Divider>OR</Divider>
                             <InputNumber placeholder="Account No" style={{ width: '100%', height: '100%' }} value={searchAccountNo} onChange={(e) => setSearchAccountNo(e)} />
                             <Input placeholder="Account Name" value={searchAccountName} onChange={(e) => setSearchAccountName(e.target.value)} />
+                            <Input placeholder="LOB" value={searchLob} onChange={(e) => setSearchLob(e.target.value)} />
                             <RangePicker
                                 format={'DD/MM/YYYY'}
                                 ranges={{
