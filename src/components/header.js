@@ -7,6 +7,10 @@ import Logo from '../images/logo.png';
 const Header = ({ siteTitle, signOut, user }) => {
   const { tokens } = useTheme();
   console.log("***** user", user)
+  let userString = user && user.attributes && (user.attributes.name || user.attributes.email)
+  if(!userString) userString = user && user.challengeParam && user.challengeParam.userAttributes && (user.challengeParam.userAttributes.name || user.challengeParam.userAttributes.email)
+  if(!userString) userString = user && user.username
+  // console.log("***** userString", userString)
   // Returns an array of groups
   const groups = user && user.signInUserSession.getIdToken().payload["cognito:groups"];
   return (
@@ -38,7 +42,7 @@ const Header = ({ siteTitle, signOut, user }) => {
         </View>
         <View width="100%">
           <Flex justifyContent="flex-end" alignItems="center" alignContent="center" direction={{ base: 'column', large: 'row' }}>
-            <Text><strong>User:</strong> {user && (user.attributes.name || user.attributes.email || user.username)}, <strong>Group: </strong>{groups}</Text>
+            <Text><strong>User:</strong> {userString}, <strong>Group: </strong>{groups}</Text>
             <Button variation="primary" onClick={signOut}>Sign out</Button>
           </Flex>
         </View>

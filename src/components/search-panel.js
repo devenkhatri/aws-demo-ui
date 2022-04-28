@@ -37,7 +37,7 @@ const SearchPanel = () => {
             query = '';
             if (searchAccountNo) query += '&AccountNumber=' + searchAccountNo
             if (searchAccountName) query += '&AccountName=' + searchAccountName
-            if (searchLob) query += '&lob=' + searchLob
+            // if (searchLob) query += '&lob=' + searchLob
             if (searchDateRange && searchDateRange.length>0) query += '&FromDate=' + moment(searchDateRange[0]).format("DD/MM/YYYY") + '&ToDate=' + moment(searchDateRange[1]).format("DD/MM/YYYY")
         }
         if (!query) { setLoading(false); setErrorMessage("No Input Provided !!"); return; }
@@ -57,8 +57,10 @@ const SearchPanel = () => {
                     if (query || response.status) setLoading(false);
                 })
                 .catch((error) => {
-                    console.log('****** API Error', error)
-                    setErrorMessage(`${error}`);
+                    const errMessage = error && (error.response.data || error.message)
+                    console.log('****** API Error.Response', error.response)
+                    console.log('****** API Error.Message', error.message)
+                    setErrorMessage(`${errMessage}`);
                     setLoading(false);
                 });
             // const APIName = 'Heartbeat';

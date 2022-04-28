@@ -207,7 +207,7 @@ const Layout = ({ children }) => {
 
   return (
     <AmplifyProvider theme={theme}>
-      <Authenticator variation="modal" hideSignUp={true} components={components}>
+      <Authenticator variation="modal" loginMechanisms={['email']} hideSignUp={true} components={components}>
         {({ signOut, user }) => {
           setCurrentUser(user);
           return (
