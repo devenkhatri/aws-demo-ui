@@ -17,7 +17,7 @@ const SearchResult = () => {
     }, []);
 
     const downloadFile = (docId) => {
-        const apiURL = process.env.GATSBY_GETDOCUMENT_API_URL + docId;
+        const apiURL = process.env.GATSBY_GETDOCUMENT_API_URL + docId + '&lob=LOB1';
         const config = {
             headers: {
                 'Authorization': userToken,
@@ -118,9 +118,9 @@ const SearchResult = () => {
 
     return (
         <Flex paddingTop={'1rem'} direction="column">
-            <center>
+            {/* <center>
                 <h2>Result(s) for <em>'{searchQuery}'</em></h2>
-            </center>
+            </center> */}
             <Table
                 columns={columns}
                 dataSource={data}

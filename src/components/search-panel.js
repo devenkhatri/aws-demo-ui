@@ -41,7 +41,7 @@ const SearchPanel = () => {
             if (searchDateRange && searchDateRange.length>0) query += '&FromDate=' + moment(searchDateRange[0]).format("DD/MM/YYYY") + '&ToDate=' + moment(searchDateRange[1]).format("DD/MM/YYYY")
         }
         if (!query) { setLoading(false); setErrorMessage("No Input Provided !!"); return; }
-        const apiURL = process.env.GATSBY_SEARCH_API_URL + "?" + sizeParam + query;
+        const apiURL = process.env.GATSBY_SEARCH_API_URL + "?" + sizeParam + '&lob=' + searchLob + query;
         console.log("****** API URL", apiURL)
         try {
             const config = {
@@ -118,7 +118,7 @@ const SearchPanel = () => {
                             <Divider>OR</Divider>
                             <InputNumber placeholder="Account No" style={{ width: '100%', height: '100%' }} value={searchAccountNo} onChange={(e) => setSearchAccountNo(e)} />
                             <Input placeholder="Account Name" value={searchAccountName} onChange={(e) => setSearchAccountName(e.target.value)} />
-                            <Input placeholder="LOB" value={searchLob} onChange={(e) => setSearchLob(e.target.value)} />
+                            {/* <Input placeholder="LOB" value={searchLob} onChange={(e) => setSearchLob(e.target.value)} /> */}
                             <RangePicker
                                 format={'DD/MM/YYYY'}
                                 ranges={{
